@@ -1,0 +1,2 @@
+# Empty YAML file for a Kubernetes deployment
+# Declare a Service and a Deployment to deploy your application on the cluster
