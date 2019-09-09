@@ -1,2 +1,38 @@
-# Empty YAML file for a Kubernetes deployment
 # Declare a Service and a Deployment to deploy your application on the cluster
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-demo
+  labels:
+    app: k8s-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-demo
+  template:
+    metadata:
+      labels:
+        app: k8s-demo
+    spec:
+      containers:
+        - name: k8s-demo
+          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-master
+          ports:
+            - containerPort: 8080
+          env:
+            - name: WELCOME_NAME
+              value: JWorks
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-demo
+spec:
+  type: ClusterIP
+  selector:
+    app: k8s-demo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
