@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: k8s-demo
-          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-master
+          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo
           ports:
             - containerPort: 8080
           env:
