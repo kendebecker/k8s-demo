@@ -85,4 +85,7 @@ Declare the stages in the Jenkinsfile. It should do 4 things:
 3. Build and push a Docker image with BUILD_NUMBER and GIT_COMMIT tags
 4. Deploy to Kubernetes
 
+## Dashboard
+[Connect to the Kubernetes dashboard](https://jworks.cfapps.io/recipes/deploying-an-application-to-kubernetes.html#access-the-kubernetes-dashboard)
+
 
