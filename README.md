@@ -74,6 +74,19 @@ Apply your configuration with the following command:
 You should see that the cluster created 2 objects: a Deployment and a Service. In that case, you should be able to browse to your application by going to the following URL: https://eks.ordina-jworks.io/k8s-demo-<team_name>.
 If I were team1, I would use https://eks.ordina-jworks.io/k8s-demo-team1.
 
+### Ingress
+**Disclaimer: To be clear, this part of the workshop has already been done for you. So there is no need for you to do this part if you are attending in the workshop. This is only needed if you are doing this on your own outside of the workshop.**
+
+Our application needs to be accessible to the outside world. This is where the Ingress comes in. 
+
+Make sure your Ingress rule:
+* has the correct path set with the correct regex
+* points to the correct service name & service port
+
+The Ingress configuration for the default namespace can be found [here](https://github.com/ordina-jworks/cloud-platforms/blob/master/aws/eks/nginx-ingress-service.yml). Just append a new path to the YAML, commit & push it and run [this](https://jenkins.ordina-jworks.io/job/nginx%20ingress%20service%20deploy/) Jenkins job to deploy the new Ingress.
+
+*Note: this is only for deploying on the default namespace. For best practices, you should create a seperate namespace and create your own Ingress there. If you want to do that, just copy/paste the ingress YAML file, add your namespace to the metadata and add your paths. Look to other namespaces for examples.*
+
 ## Jenkins
 We can automate this whole process by using the JWorks Jenkins. First, we need to create a new item (left sidebar). Fill in the name of the project (use the name of your team) and then click OK. Click on Configure and scroll down to Pipeline settings.
 Choose to use a Jenkinsfile from SCM and then select Git. here, enter the SSH URL of this Git repository and select the correct credentials. In branch, you set your branch only. So if your branch is `k8s-demo-team1`, you set `/*k8s-demo-team1`.
@@ -87,5 +100,4 @@ Declare the stages in the Jenkinsfile. It should do 4 things:
 
 ## Dashboard
 [Connect to the Kubernetes dashboard](https://jworks.cfapps.io/recipes/deploying-an-application-to-kubernetes.html#access-the-kubernetes-dashboard)
-
 
