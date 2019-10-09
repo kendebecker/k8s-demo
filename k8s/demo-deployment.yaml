@@ -2,36 +2,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-demo
+  name: k8s-demo-kdb
   labels:
-    app: k8s-demo
+    app: k8s-demo-kdb
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      app: k8s-demo
+    matchLabels: #matches on template label, defaults to this in later api versions
+      app: k8s-demo-kdb
   template:
     metadata:
       labels:
-        app: k8s-demo
+        app: k8s-demo-kdb
     spec:
       containers:
-        - name: k8s-demo
-          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo
+        - name: k8s-demo-kdb
+          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-kdb
           ports:
             - containerPort: 8080
           env:
             - name: WELCOME_NAME
-              value: JWorks
+              value: Ken
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-demo
+  name: k8s-demo-kdb
 spec:
   type: ClusterIP
-  selector:
-    app: k8s-demo
+  selector: #matches on pod app-value , this means deployment app-label
+    app: k8s-demo-kdb
   ports:
     - protocol: TCP
       port: 8080
