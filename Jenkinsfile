@@ -12,14 +12,16 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh ''
+                sh 'mvn clean install'
             }
         }
 
         stage('Docker build') {
             steps {
                 sh '''
+                docker build -t 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-kdb:$BUILD_NUMBER-$GIT_COMMIT .
 
+                docker push 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-kdb:$BUILD_NUMBER-$GIT_COMMIT
                 '''
             }
         }
@@ -27,7 +29,8 @@ pipeline {
         stage('Deploy dev to EKS') {
             steps {
                 sh '''
-
+                export KUBECONFIG=/opt/kubecfg/config
+                envsubst < k8s/demo-deployment.yaml | kubectl apply -f -
                 '''
             }
         }

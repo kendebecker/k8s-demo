@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: k8s-demo-kdb
-          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-kdb
+          image: 163091829738.dkr.ecr.eu-west-1.amazonaws.com/k8s-demo-kdb:$BUILD_NUMBER-$GIT_COMMIT
           ports:
             - containerPort: 8080
           env:
